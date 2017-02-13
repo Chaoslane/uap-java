@@ -24,33 +24,41 @@ import java.util.Map;
  * @author Steve Jiang (@sjiang) <gh at iamsteve com>
  */
 public class Device {
-  public final String family;
+  public final String family,brand, model;
 
-  public Device(String family) {
+  public Device(String family, String brand, String model) {
     this.family = family;
+    this.brand = brand;
+    this.model = model;
   }
 
   public static Device fromMap(Map<String, String> m) {
-    return new Device((String) m.get("family"));
+    return new Device(m.get("family"), m.get("brand"), m.get("model"));
   }
 
   @Override
-  public boolean equals(Object other) {
-    if (other == this) return true;
-    if (!(other instanceof Device)) return false;
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
 
-    Device o = (Device) other;
-    return (this.family != null && this.family.equals(o.family)) || this.family == o.family;
+    Device device = (Device) o;
+
+    if (!family.equals(device.family)) return false;
+    if (!brand.equals(device.brand)) return false;
+    return model.equals(device.model);
   }
 
   @Override
   public int hashCode() {
-    return family == null ? 0 : family.hashCode();
+    int result = family.hashCode();
+    result = 31 * result + brand.hashCode();
+    result = 31 * result + model.hashCode();
+    return result;
   }
 
-  @Override
-  public String toString() {
-    return String.format("{\"family\": %s}",
-                         family == null ? Constants.EMPTY_STRING : '"' + family + '"');
-  }
+//  @Override
+//  public String toString() {
+//    return String.format("{\"family\": %s}",
+//                         family == null ? Constants.EMPTY_STRING : '"' + family + '"');
+//  }
 }
