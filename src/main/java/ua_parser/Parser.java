@@ -31,7 +31,7 @@ import org.yaml.snakeyaml.constructor.SafeConstructor;
  */
 public class Parser {
 
-  private static final String REGEX_YAML_PATH = "/ua_parser/regexes.yaml";
+  private static final String REGEX_YAML_PATH = "./regexes.yaml";
   private UserAgentParser uaParser;
   private OSParser osParser;
   private DeviceParser deviceParser;
@@ -47,7 +47,7 @@ public class Parser {
   public Client parse(String agentString) {
     UserAgent ua = parseUserAgent(agentString);
     OS os = parseOS(agentString);
-    Device device = deviceParser.parse(agentString);
+    Device device = parseDevice(agentString);
     return new Client(ua, os, device);
   }
 

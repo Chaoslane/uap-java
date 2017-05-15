@@ -43,20 +43,20 @@ public class Device {
 
     Device device = (Device) o;
 
-    if (!family.equals(device.family)) return false;
-    if (!brand.equals(device.brand)) return false;
-    return model.equals(device.model);
+    if (family != null ? !family.equals(device.family) : device.family != null) return false;
+    if (brand != null ? !brand.equals(device.brand) : device.brand != null) return false;
+    return model != null ? model.equals(device.model) : device.model == null;
   }
 
   @Override
   public int hashCode() {
-    int result = family.hashCode();
-    result = 31 * result + brand.hashCode();
-    result = 31 * result + model.hashCode();
+    int result = family != null ? family.hashCode() : 0;
+    result = 31 * result + (brand != null ? brand.hashCode() : 0);
+    result = 31 * result + (model != null ? model.hashCode() : 0);
     return result;
   }
 
-//  @Override
+  //  @Override
 //  public String toString() {
 //    return String.format("{\"family\": %s}",
 //                         family == null ? Constants.EMPTY_STRING : '"' + family + '"');

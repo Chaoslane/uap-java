@@ -147,7 +147,9 @@ public class ParserTest {
     for(Map<String, String> testCase : testCases) {
 
       String uaString = testCase.get("user_agent_string");
-      assertThat(uaString, parser.parseDevice(uaString), is(Device.fromMap(testCase)));
+      Device device1 = parser.parseDevice(uaString);
+      Device device2 = Device.fromMap(testCase);
+      assertThat(uaString, device1 , is(device2));
     }
   }
 
