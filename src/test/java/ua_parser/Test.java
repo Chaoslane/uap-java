@@ -9,7 +9,7 @@ public class Test {
     public static void main(String[] args) throws IOException {
         String uaString = "HbbTV/1.1.1 (;Samsung;SmartTV2013;T-FXPDEUC-1102.2;;) WebKit";
         System.out.println(uaString);
-        Parser uaParser = new Parser();
+        Parser uaParser = CachingParser.getInstance();
         Client c = uaParser.parse(uaString);
 
         System.out.println(c.userAgent.family); // => "Mobile Safari"

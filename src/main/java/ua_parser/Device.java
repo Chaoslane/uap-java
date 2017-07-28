@@ -56,9 +56,9 @@ public class Device {
     return result;
   }
 
-  //  @Override
-//  public String toString() {
-//    return String.format("{\"family\": %s}",
-//                         family == null ? Constants.EMPTY_STRING : '"' + family + '"');
-//  }
+  @Override
+  public String toString() {
+    return String.format("{\"family\": %s}",
+                         family == null ? Constants.EMPTY_STRING : '"' + family + '"');
+  }
 }
