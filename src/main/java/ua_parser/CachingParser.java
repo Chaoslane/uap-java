@@ -18,9 +18,7 @@ import java.util.Map;
  * @author Niels Basjes
  */
 public class CachingParser extends Parser {
-
-    // TODO: Make configurable
-    private static final int CACHE_SIZE = 100*1024 ;
+    private int cacheSize;
 
     private static Map<String, Client> cacheClient = null;
 
@@ -28,9 +26,15 @@ public class CachingParser extends Parser {
 
     public CachingParser() {
         super();
+        this.cacheSize = 1024 * 100;
     }
 
-    public CachingParser(InputStream regexYaml) {
+    public CachingParser(int cacheSize) {
+        super();
+        this.cacheSize = cacheSize;
+    }
+
+    CachingParser(InputStream regexYaml) {
         super(regexYaml);
     }
 
@@ -43,7 +47,7 @@ public class CachingParser extends Parser {
             return null;
         }
         if (cacheClient == null) {
-            cacheClient = new LRUMap(CACHE_SIZE);
+            cacheClient = new LRUMap(this.cacheSize);
         }
         Client client = cacheClient.get(agentString);
         if (client != null) {
@@ -56,11 +60,4 @@ public class CachingParser extends Parser {
 
     // ------------------------------------------
 
-    private static class SingleCachingParser {
-        private static final CachingParser INSTANCE = new CachingParser();
-    }
-
-    public static CachingParser getInstance() {
-        return SingleCachingParser.INSTANCE;
-    }
 }
